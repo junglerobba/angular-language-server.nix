@@ -16,7 +16,7 @@ in pkgs.stdenv.mkDerivation rec {
   pname = "typescript-language-server";
   inherit version;
 
-  nativeBuildInputs = [ pkgs.makeWrapper ];
+  nativeBuildInputs = with pkgs; [ makeWrapper ];
   buildInputs = with pkgs; [ rsync ];
 
   configurePhase = ''

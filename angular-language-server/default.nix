@@ -8,13 +8,11 @@ let
 in pkgs.mkYarnPackage rec {
   pname = "angular-language-server";
   version = "14.1";
+
   src = ./.;
   inherit nodejs;
 
-  dontFixup = true;
-  doDist = false;
-
-  nativeBuildInputs = [ pkgs.makeWrapper ];
+  nativeBuildInputs = with pkgs; [ makeWrapper ];
 
   installPhase = ''
     runHook preInstall
@@ -29,4 +27,7 @@ in pkgs.mkYarnPackage rec {
 
     runHook postInstall
   '';
+
+  dontFixup = true;
+  doDist = false;
 }

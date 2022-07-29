@@ -14,6 +14,7 @@
       in {
         packages.typescript-language-server = pkgs.callPackage ./typescript-language-server { };
         packages.angular-language-server = pkgs.callPackage ./angular-language-server { inherit nodejs; };
+        packages.vscode-langservers-extracted = pkgs.callPackage ./vscode-langservers-extracted { };
 
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
