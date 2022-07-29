@@ -3,7 +3,7 @@
 A Nix flake providing various language servers for web development. It allows easy integration into existing development shells without polluting `package.json/devDependencies` (which probably other developers aren't intersted in if the use a different tooling, i.e. not Nix).
 
 
-### Angular Language Server
+## Angular Language Server
 
 It provides `bin/angular-language-server` (aka `ngserver`) wrapped the command line arguments `--add-flags --ngProbeLocations $out/node_modules --tsProbeLocations $out/node-modules`, which expects `node` in the `$PATH`. A typical usage of this server is to provide just the `--stdio` flag.
 
@@ -12,14 +12,14 @@ Besides the wrapped version it includes `bin/angular-language-server-unwrapped` 
 The currently used packages are visible through [angular-language-server/package.json](./angular-language-server/package.json).
 
 
-### Typescript Language Server
+## Typescript Language Server
 
 It provides `bin/typescript-language-server`, which expects `node` in the `$PATH`. A typical usage of this server is to provide just the `--stdio` flag.
 
 The currently used packages are visible through [typescript-language-server/package.json](./typescript-language-server/package.json).
 
 
-# How to use this?
+## How to use this?
 
 Include the flake into your flake which defines the dev shell, e.g.:
 
