@@ -1,14 +1,15 @@
-# web-language-servers.nix
+# language-servers.nix
 
 - [Introduction](#introduction)
 - [Angular Language Server](#angular-language-server)
 - [Typescript Language Server](#typescript-language-server)
 - [Extracted VSCcode Language Servers](#extracted-vscode-language-servers)
+- [JDT Language Server](#jdk-language-server)
 
 
 ## Introduction
 
-A Nix flake providing various language servers for web development. It allows easy integration into existing development shells without polluting `package.json/devDependencies` (which probably other developers aren't intersted in if the use a different tooling, i.e. not Nix).
+A Nix flake providing various language servers. It allows easy integration into existing development shells (without polluting e.g. `package.json/devDependencies` which probably other developers aren't intersted in if the use a different tooling, i.e. not Nix).
 
 
 ## Angular Language Server
@@ -41,6 +42,13 @@ Included are currently:
 - vscode-json-language-server
 
 
+## JDT Language Server
+
+It provides `bin/jdtls` and `result/libexec/jdt-language-server/plugins` from [Eclipse JDT Language Server](https://github.com/eclipse/eclipse.jdt.ls) which can be consumed in editors like Emacs. It is based on the binary distribution because building the server from source is non trivial (Maven with Tycho).
+
+The current version is transparent via [jdt-language-server/default.nix](jdt-language-server/default.nix).
+
+
 ## How to use this?
 
 Include the flake into your flake which defines the dev shell, e.g.:
@@ -49,7 +57,7 @@ Include the flake into your flake which defines the dev shell, e.g.:
 {
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs;
-    language-servers.url = git+https://git.sr.ht/~bwolf/web-language-servers.nix;
+    language-servers.url = git+https://git.sr.ht/~bwolf/language-servers.nix;
     flake-utils.url = github:numtide/flake-utils;
   };
 
@@ -64,6 +72,7 @@ Include the flake into your flake which defines the dev shell, e.g.:
             language-servers.packages.${system}.angular-language-server
             language-servers.packages.${system}.typescript-language-server
             language-servers.packages.${system}.vscode-langservers-extracted
+            language-servers.packages.${system}.jdt-language-server
           ];
         };
       });
