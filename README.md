@@ -4,6 +4,7 @@
 - [Angular Language Server](#angular-language-server)
 - [Typescript Language Server](#typescript-language-server)
 - [Extracted VSCcode Language Servers](#extracted-vscode-language-servers)
+- [Svelte Language Server](#svelte-language-server)
 - [JDT Language Server](#jdk-language-server)
 
 
@@ -42,6 +43,13 @@ Included are currently:
 - vscode-json-language-server
 
 
+## Svelte Language Server
+
+It provides `bin/svelte-language-server` from [svelte-language-server](https://github.com/sveltejs/language-tools) which expects `node` in `$PATH`.
+
+The currently used packages are visible through [svelte-language-server/package.json](./svelte-language-server/package.json).
+
+
 ## JDT Language Server
 
 It provides `bin/jdtls` and `result/libexec/jdt-language-server/plugins` from [Eclipse JDT Language Server](https://github.com/eclipse/eclipse.jdt.ls) which can be consumed in editors like Emacs. It is based on the binary distribution because building the server from source is non trivial (Maven with Tycho).
@@ -72,6 +80,7 @@ Include the flake into your flake which defines the dev shell, e.g.:
             language-servers.packages.${system}.angular-language-server
             language-servers.packages.${system}.typescript-language-server
             language-servers.packages.${system}.vscode-langservers-extracted
+            language-servers.packages.${system}.svelte-language-server
             language-servers.packages.${system}.jdt-language-server
           ];
         };
