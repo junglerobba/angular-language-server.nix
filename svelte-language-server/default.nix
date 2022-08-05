@@ -16,7 +16,6 @@ in pkgs.stdenv.mkDerivation rec {
   pname = "svelte-language-server";
   inherit version;
 
-  # TODO nativeBuildInputs = with pkgs; [ makeWrapper ];
   buildInputs = with pkgs; [ rsync ];
 
   configurePhase = ''
@@ -29,15 +28,16 @@ in pkgs.stdenv.mkDerivation rec {
     chmod a+rwx $out/node_modules
     rsync -a --no-links ${modules}/deps/${pname}-modules/node_modules $out
 
-    make_start () {
+    make_start_server () {
       target="$1"
       require="$2"
       echo '#!/usr/bin/env node' >"$1"
-      echo "require('$2');" >>"$1"
+      echo "const { startServer } = require('$2');" >>"$1"
+      echo "startServer();" >>"$1"
       chmod a+x "$1"
     }
 
-    make_start "$out/bin/svelte-language-server" \
+    make_start_server "$out/bin/svelte-language-server" \
       "$out/node_modules/svelte-language-server/dist/src/server"
   '';
 
