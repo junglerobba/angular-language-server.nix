@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 pkgs.stdenv.mkDerivation {
   pname = "jdt-language-server";
@@ -9,6 +9,8 @@ pkgs.stdenv.mkDerivation {
     sha256 = "sha256-OPIP7Ceo/NsbPEmhF2Kd0IALFhFxr9S4lL3AJvL8ovM=";
   };
 
+  nativeBuildInputs = with pkgs; [ makeWrapper ];
+
   buildPhase = ''
     mkdir -p jdt-language-server
     tar xfz $src -C jdt-language-server
@@ -16,10 +18,8 @@ pkgs.stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin $out/libexec
-    cp -a jdt-language-server/bin/* $out/bin
-    chmod a+x $out/bin/jdtls
-    chmod a-x $out/bin/jdtls.py
     cp -a jdt-language-server $out/libexec
+    makeWrapper $out/libexec/jdt-language-server/bin/jdtls $out/bin/jdtls --prefix PATH : ${lib.makeBinPath [ pkgs.python3 ]}
   '';
 
   dontUnpack = true;

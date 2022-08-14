@@ -52,7 +52,9 @@ The currently used packages are visible through [svelte-language-server/package.
 
 ## JDT Language Server
 
-It provides `bin/jdtls` and `result/libexec/jdt-language-server/plugins` from [Eclipse JDT Language Server](https://github.com/eclipse/eclipse.jdt.ls) which can be consumed in editors like Emacs. It is based on the binary distribution because building the server from source is non trivial (Maven with Tycho).
+It provides `bin/jdtls` and `libexec/jdt-language-server/*` from [Eclipse JDT Language Server](https://github.com/eclipse/eclipse.jdt.ls) which can be consumed in editors like Emacs or Vim. It is based on the binary distribution because building the server from source is non trivial (Maven with Tycho plugin).
+
+`bin/jdtls` is a wrapper script, which invokes `libexec/jdt-language-server/bin/jdtls`, prefixed with Pyhton added to the `PATH`. Java needs to be in the path to make it work.
 
 The current version is transparent via [jdt-language-server/default.nix](jdt-language-server/default.nix).
 
