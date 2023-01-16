@@ -1,13 +1,13 @@
 { pkgs, nodejs, ... }:
 
 let
-  version = let packageJson = with builtins; fromJSON (
-    readFile ./package.json);
-            in builtins.replaceStrings ["^" "~"] ["" ""] (packageJson.dependencies."@angular/language-server");
+  version = let packageJson = with builtins; fromJSON (readFile ./package.json);
+  in builtins.replaceStrings [ "^" "~" ] [ "" "" ]
+  (packageJson.dependencies."@angular/language-server");
 
 in pkgs.mkYarnPackage rec {
   pname = "angular-language-server";
-  version = "14.1";
+  version = "15.1";
 
   src = ./.;
   inherit nodejs;
