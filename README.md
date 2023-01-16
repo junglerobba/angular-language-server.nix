@@ -68,6 +68,7 @@ Include the flake into your flake which defines the dev shell, e.g.:
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs;
     language-servers.url = git+https://git.sr.ht/~bwolf/language-servers.nix;
+    language-servers.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = github:numtide/flake-utils;
   };
 
@@ -77,7 +78,7 @@ Include the flake into your flake which defines the dev shell, e.g.:
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [
+          packages = with pkgs; [
             nodejs-18_x
             language-servers.packages.${system}.angular-language-server
             language-servers.packages.${system}.typescript-language-server
