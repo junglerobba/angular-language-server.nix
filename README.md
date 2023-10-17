@@ -2,7 +2,6 @@
 
 - [Introduction](#introduction)
 - [Angular Language Server](#angular-language-server)
-- [Typescript Language Server](#typescript-language-server)
 - [Extracted VSCcode Language Servers](#extracted-vscode-language-servers)
 - [Svelte Language Server](#svelte-language-server)
 - [JDT Language Server](#jdk-language-server)
@@ -20,13 +19,6 @@ It provides `bin/angular-language-server` (aka `ngserver`) from [vscode-ng-langu
 Besides the wrapped version it includes `bin/angular-language-server-unwrapped` which expects `nodejs` in the `$PATH` and this one does not set any command line arguments by default. This requires to provide the `--ngProbeLocations ` and the `--ngProbeLocations` arguments to the script.
 
 The currently used packages are visible through [angular-language-server/package.json](./angular-language-server/package.json).
-
-
-## Typescript Language Server
-
-It provides `bin/typescript-language-server` from [typescript-language-server](https://github.com/typescript-language-server/typescript-language-server), which expects `node` in the `$PATH`. A typical usage of this server is to provide just the `--stdio` flag.
-
-The currently used packages are visible through [typescript-language-server/package.json](./typescript-language-server/package.json).
 
 
 ## Extracted VSCcode Language Servers
