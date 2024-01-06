@@ -1,13 +1,13 @@
 { pkgs, nodejs, ... }:
 
 let
-  version = let packageJson = with builtins; fromJSON (readFile ./package.json);
+  v = let packageJson = with builtins; fromJSON (readFile ./package.json);
   in builtins.replaceStrings [ "^" "~" ] [ "" "" ]
   (packageJson.dependencies."@angular/language-server");
 
 in pkgs.mkYarnPackage rec {
   pname = "angular-language-server";
-  version = "15.1";
+  version = v;
 
   src = ./.;
   inherit nodejs;
@@ -22,7 +22,7 @@ in pkgs.mkYarnPackage rec {
     cp $src/index.js $out/bin/${pname}-unwrapped
     chmod a+x $out/bin/${pname}-unwrapped
 
-    makeWrapper $out/bin/${pname}-unwrapped $out/bin/${pname} \
+    makeWrapper $out/bin/${pname}-unwrapped $out/bin/ngserver \
       --add-flags "--ngProbeLocations $out/node_modules --tsProbeLocations $out/node-modules"
 
     runHook postInstall
