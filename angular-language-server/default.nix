@@ -12,6 +12,7 @@ in pkgs.mkYarnPackage rec {
   src = ./.;
   inherit nodejs;
 
+  buildInputs = with pkgs; [ typescript ];
   nativeBuildInputs = with pkgs; [ makeWrapper ];
 
   installPhase = ''
@@ -23,7 +24,7 @@ in pkgs.mkYarnPackage rec {
     chmod a+x $out/bin/${pname}-unwrapped
 
     makeWrapper $out/bin/${pname}-unwrapped $out/bin/ngserver \
-      --add-flags "--ngProbeLocations $out/node_modules --tsProbeLocations $out/node-modules"
+      --add-flags "--ngProbeLocations $out/node_modules --tsProbeLocations ${pkgs.typescript}/lib/node-modules"
 
     runHook postInstall
   '';

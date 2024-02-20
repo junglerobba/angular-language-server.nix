@@ -8,7 +8,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@angular/language-server": "^17.2.2",
-    "typescript": "^5.3.3"
+    "@angular/language-server": "^17.2.2"
   }
 }
