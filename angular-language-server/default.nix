@@ -21,6 +21,7 @@ in pkgs.mkYarnPackage rec {
     mkdir -p $out/bin
     cp -r $node_modules $out
     cp $src/index.js $out/bin/${pname}-unwrapped
+    patchShebangs --build $out/bin/${pname}-unwrapped
     chmod a+x $out/bin/${pname}-unwrapped
 
     makeWrapper $out/bin/${pname}-unwrapped $out/bin/ngserver \
