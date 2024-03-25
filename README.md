@@ -4,9 +4,9 @@
 
 ## Angular Language Server
 
-It provides `bin/ngserver` from [vscode-ng-language-service](https://github.com/angular/vscode-ng-language-service) with the wrapped command line arguments `--add-flags --ngProbeLocations $out/node_modules --tsProbeLocations $out/node-modules`, which expects `node` in the `$PATH`. A typical usage of this server is to provide just the `--stdio` flag.
+It provides `bin/ngserver` from [vscode-ng-language-service](https://github.com/angular/vscode-ng-language-service) with the wrapped command line arguments `--add-flags --ngProbeLocations $out/node_modules --tsProbeLocations ${pkgs.typescript}/node-modules`. A typical usage of this server is to provide just the `--stdio` flag.
 
-Besides the wrapped version it includes `bin/angular-language-server-unwrapped` which expects `nodejs` in the `$PATH` and this one does not set any command line arguments by default. This requires to provide the `--ngProbeLocations ` and the `--ngProbeLocations` arguments to the script.
+Besides the wrapped version it includes `bin/angular-language-server-unwrapped` and this one does not set any command line arguments by default. This requires to provide the `--ngProbeLocations ` and the `--ngProbeLocations` arguments to the script.
 
 The currently used packages are visible through [angular-language-server/package.json](./angular-language-server/package.json).
 
@@ -18,7 +18,7 @@ Include the flake into your flake which defines the dev shell, e.g.:
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
-    angular-language-server.url = "git+https://gitlab.com/junglerobba/angular-language-server";
+    angular-language-server.url = "github:junglerobba/angular-language-server.nix";
     angular-language-server.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
@@ -30,7 +30,7 @@ Include the flake into your flake which defines the dev shell, e.g.:
       in {
         devShell = pkgs.mkShell {
           packages = with pkgs; [
-            nodejs-18_x
+            nodejs_20
             angular-language-server.packages.${system}.default
           ];
         };
