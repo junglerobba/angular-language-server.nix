@@ -27,11 +27,20 @@ Include the flake into your flake which defines the dev shell, e.g.:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          # provides an overlay and a default package
+          overlays = [ angular-language-server.overlays.default ];
+        };
+        nodejs = pkgs.nodejs_22;
       in {
         devShell = pkgs.mkShell {
           packages = with pkgs; [
-            nodejs_20
-            angular-language-server.packages.${system}.default
+            nodejs
+            # can also override node version used
+            (angular-language-server.override {
+              inherit nodejs;
+            })
           ];
         };
       });

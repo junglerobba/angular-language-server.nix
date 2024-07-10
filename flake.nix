@@ -6,17 +6,34 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs { inherit system; };
         nodejs = pkgs.nodejs_20;
-      in {
-        packages.angular-language-server =
-          pkgs.callPackage ./angular-language-server { inherit nodejs; };
+        angular-language-server = pkgs.callPackage ./angular-language-server { inherit nodejs; };
+      in
+      {
+        packages.default = angular-language-server;
 
-        packages.default = self.packages.${system}.angular-language-server;
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            nodejs
+            yarn
+          ];
+        };
 
-        devShell = pkgs.mkShell { buildInputs = with pkgs; [ nodejs yarn ]; };
-      });
+      }
+    )
+    // {
+      overlays.default = final: prev: {
+        angular-language-server = self.packages.${final.system}.default;
+      };
+    };
 }
