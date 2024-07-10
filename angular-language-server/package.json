@@ -8,6 +8,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@angular/language-server": "^18.0.0"
+    "@angular/language-server": "^18.1.1"
   }
 }
